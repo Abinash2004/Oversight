@@ -1,4 +1,4 @@
-import 'package:finance_tracker/Account/Login/login_screen.dart';
+import 'package:finance_tracker/Screen/Login/login_screen.dart';
 import 'package:finance_tracker/Elements/functions.dart';
 import 'package:finance_tracker/main.dart';
 import 'package:flutter/material.dart';

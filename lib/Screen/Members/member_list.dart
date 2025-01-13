@@ -1,7 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Elements/widgets.dart';
-import 'package:finance_tracker/Account/account_screen.dart';
+import 'package:finance_tracker/Screen/Account/account_screen.dart';
 import 'package:finance_tracker/main.dart';
 
 class MemberList extends StatefulWidget {
@@ -27,7 +27,7 @@ class _MemberListState extends State<MemberList> {
       
       appBar: AppBar(
         backgroundColor: accentColor1,
-        title: appBarTitleText('${MemberList.user} Details'),
+        title: appBarTitleText('${MemberList.user} List'),
         actions: (MemberList.user == 'Student') ? [ DropdownButton<String>(
           value: std,
           items: [

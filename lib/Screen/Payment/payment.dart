@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Elements/functions.dart';
 import 'package:finance_tracker/Elements/widgets.dart';
-import 'package:finance_tracker/member_list.dart';
+import 'package:finance_tracker/Screen/Members/member_list.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});

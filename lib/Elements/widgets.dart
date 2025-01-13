@@ -1,16 +1,15 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:finance_tracker/Account/account_screen.dart';
-import 'package:finance_tracker/Account/edit_account.dart';
-import 'package:finance_tracker/Add%20Members/add_student.dart';
-import 'package:finance_tracker/Add%20Members/add_teacher.dart';
+import 'package:finance_tracker/Screen/Account/account_screen.dart';
+import 'package:finance_tracker/Screen/Account/edit_account.dart';
+import 'package:finance_tracker/Screen/Members/add_student.dart';
+import 'package:finance_tracker/Screen/Members/add_teacher.dart';
 import 'package:finance_tracker/Elements/functions.dart';
-import 'package:finance_tracker/Monthly%20Collection/fees_collection.dart';
-import 'package:finance_tracker/Monthly%20Collection/salary_collection.dart';
+import 'package:finance_tracker/Screen/Monthly%20Collection/fees_collection.dart';
+import 'package:finance_tracker/Screen/Monthly%20Collection/salary_collection.dart';
 import 'package:finance_tracker/main.dart';
-import 'package:finance_tracker/member_list.dart';
-import 'package:finance_tracker/Payment/payment.dart';
-import 'package:finance_tracker/Payment/payment_history.dart';
+import 'package:finance_tracker/Screen/Members/member_list.dart';
+import 'package:finance_tracker/Screen/Payment/payment.dart';
+import 'package:finance_tracker/Screen/Payment/payment_history.dart';
 import 'package:pinput/pinput.dart';
 
 //------------------------------------------------
@@ -66,7 +65,6 @@ Widget loginTitleText(String text) {
     ),
   );
 }
-
 
 // text for heading in login screen
 Widget headingText(String text, bool isheading) {
@@ -154,43 +152,32 @@ Pinput pinPutOTP(var otpCode) {
 
 // title text for home screen
 Widget appBarTitleText(String text) {
-  return Align(
-    alignment: Alignment.centerLeft,
-    child: Text(text,
-      style: textStyle(Colors.white, 17, FontWeight.w500, 1.5, 0),
-    ),
-  );
+  return Text(text, style: const TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w600
+  ));
 }
 
 //App Bar for Home Screen
-AppBar homeScreenAppBar(String name, var context){
+AppBar homeScreenAppBar(var context){
   return AppBar(
-    toolbarHeight: 75,
-    title: Column(
-      children: [
-        appBarTitleText('Welcome,'),
-        const SizedBox(height: 5),
-        appBarTitleText(name),
-      ],
-    ),
+    // toolbarHeight: 75,
+    title: appBarTitleText("Dashboard"),
     backgroundColor: accentColor1,
     automaticallyImplyLeading: false,
     actions: [
-      Padding(
-        padding: const EdgeInsets.all(10),
-        child: IconButton(
-          onPressed: () {
-            AccountScreen.user = MyApp.user;
-            AccountScreen.name = MyApp.name;
-            AccountScreen.email = MyApp.email;
-            AccountScreen.phoneNumber = MyApp.phoneNumber;
-            AccountScreen.joiningDate = MyApp.joiningDate;
-            AccountScreen.std = MyApp.grade;
-            AccountScreen.isLogOut = true;
-            Navigator.push(context,MaterialPageRoute(builder:(context) => const AccountScreen()));
-          },
-          icon: const Icon(Icons.account_circle,size: 45),
-        ),
+      IconButton(
+        onPressed: () {
+          AccountScreen.user = MyApp.user;
+          AccountScreen.name = MyApp.name;
+          AccountScreen.email = MyApp.email;
+          AccountScreen.phoneNumber = MyApp.phoneNumber;
+          AccountScreen.joiningDate = MyApp.joiningDate;
+          AccountScreen.std = MyApp.grade;
+          AccountScreen.isLogOut = true;
+          Navigator.push(context,MaterialPageRoute(builder:(context) => const AccountScreen()));
+        },
+        icon: const Icon(Icons.account_circle,size: 40),
       ),
     ],
   );
@@ -275,7 +262,7 @@ Widget memberListContainer(var screen,String text, var context) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Icon(Icons.person,color: accentColor2),
+          const Icon(Icons.person_rounded,color: accentColor2,size: 25),
           SizedBox(width: screen.width*0.05),
           Text(text,
             style: textStyle(Colors.white70, 17, FontWeight.w400, 1, 0.3),
@@ -319,8 +306,6 @@ Widget addTeacherStudentContainer(context,screen, text) {
     ),
   );
 }
-
-
 
 // View Salary or Fees History Container
 Widget paymentHistoryContainer(var screen,String text, var context) {
@@ -375,8 +360,6 @@ AppBar accountScreenAppBar(context) {
     title: appBarTitleText('Account Information'),
   );
 }
-
-
 
 //Account Name widget 
 Widget accountName(text) {
@@ -437,29 +420,6 @@ Widget addTextFormField(var text,var controller, var icon, bool isName) {
       focusedBorder: defaultBorder.copyWith(
         borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
       ),
-    ),
-  );
-}
-
-AlertDialog memberAddedBox(var context, var name, var phone, var email) {
-  return AlertDialog(
-    backgroundColor: widgetColor,
-    title: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Successfully Saved !',style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25)),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          style: buttonStyle(),
-          onPressed: () { 
-              name = TextEditingController(text: '');
-              phone = TextEditingController(text: '');
-              email = TextEditingController(text: '');
-            Navigator.pop(context);
-          },
-          child: buttonText('OK'),
-        ),
-      ],
     ),
   );
 }
@@ -527,66 +487,6 @@ Widget memberListText(String text) {
 }
 
 //-----------------------------------------------
-//---------Edit Account Screen Widgets-----------
-//-----------------------------------------------
-
-// Widget to edit profile picture
-Widget editProfilePicture() {
-  return Container(
-    height: 150, width: 150,
-    decoration: BoxDecoration(
-      color: widgetColor,
-      border: Border.all(color: accentColor2,width: 5),
-      borderRadius: BorderRadius.circular(100),
-    ),
-    child: (EditAccountScreen.picture.isNotEmpty || EditAccountScreen.isLocal) ? 
-    ClipRRect(
-      borderRadius: BorderRadius.circular(100),
-      child: EditAccountScreen.isLocal ? 
-      Image.file(File(EditAccountScreen.localFile),
-        height: 100.0, width: 100.0,
-        fit: BoxFit.cover,
-      ) :
-      Image.network(EditAccountScreen.picture,
-        height: 100.0, width: 100.0,
-        fit: BoxFit.cover,
-      ),
-    ) : 
-    const Icon(Icons.person,size: 125),
-  );
-}
-
-// Pop Up Message for edited successfully
-AlertDialog memberEditedBox(var context, var name) {
-  return AlertDialog(
-    backgroundColor: widgetColor,
-    title: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text('Successfully Saved !',style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25)),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          style: buttonStyle(),
-          onPressed: () {
-            EditAccountScreen.editUser = '';
-            EditAccountScreen.name = '';
-            EditAccountScreen.phoneNumber = '';
-            EditAccountScreen.joiningDate = '';
-            EditAccountScreen.std = '';
-            EditAccountScreen.picture = '';
-            EditAccountScreen.localFile = '';
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
-          child: buttonText('OK'),
-        ),
-      ],
-    ),
-  );
-}
-
-//-----------------------------------------------
 //------------Payment Screen Widgets-------------
 //-----------------------------------------------
 
@@ -651,5 +551,25 @@ Widget paymentTextFormField(var text,var controller, var icon) {
         borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
       ),
     ),
+  );
+}
+
+ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackbar(var text, var context) {
+  return  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: widgetColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30), // Rounded corners
+      ),
+      content: Center(
+        child: Text(text,
+          style: const TextStyle(
+            color: Colors.white60,
+            fontSize: 22,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+      )
+    )
   );
 }

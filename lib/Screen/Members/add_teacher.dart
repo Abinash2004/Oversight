@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Elements/widgets.dart';
+import 'package:intl/intl.dart';
 
 class AddTeacherScreen extends StatefulWidget {
   const AddTeacherScreen({super.key});
@@ -15,23 +16,25 @@ class _AddTeacherScreenState extends State<AddTeacherScreen> {
   var name = TextEditingController();
   var phone = TextEditingController();
   var email = TextEditingController();
-  String day = DateTime.now().day.toString();
-  String month = 'January';
-  String year = DateTime.now().year.toString();
-  List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+  var date = "";
+  DateTime? selectedDate;
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(data: ThemeData.dark(),child: child!);
+      },
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = DateTime(picked.year, picked.month, picked.day);
+        date = DateFormat('dd / MM / yyyy').format(selectedDate!);
+      });
+    }
+  }
   bool isLoading = false;
 
   @override
@@ -62,82 +65,19 @@ class _AddTeacherScreenState extends State<AddTeacherScreen> {
                     const Icon(Icons.email, color: Colors.white54), true),
                 SizedBox(height: screen.height * 0.025),
                 Container(
-                  height: screen.width * 0.3,
+                  height: screen.width * 0.16,
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: widgetColor,
                       border: Border.all(color: accentColor2, width: 2),
                       borderRadius: BorderRadius.circular(25)),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 15),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Joining Date',
-                            style: textStyle(
-                                Colors.white70, 20, FontWeight.w500, 1, 0.25),
-                          ),
-                        ),
-                        SizedBox(height: screen.height * 0.015),
-                        Row(
-                          children: [
-                            DropdownButton<String>(
-                              value: day,
-                              items: [
-                                for (int i = 1; i < 32; i++)
-                                  DropdownMenuItem<String>(
-                                      value: i.toString(),
-                                      child: Text(i.toString(),
-                                          style: textStyle(Colors.white70, 17,
-                                              FontWeight.w500, 1, 0.25))),
-                              ],
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  day = newValue!;
-                                });
-                              },
-                            ),
-                            SizedBox(width: screen.width * 0.05),
-                            DropdownButton<String>(
-                              value: month,
-                              items: [
-                                for (int i = 0; i < 12; i++)
-                                  DropdownMenuItem<String>(
-                                      value: months[i],
-                                      child: Text(months[i],
-                                          style: textStyle(Colors.white70, 17,
-                                              FontWeight.w500, 1, 0.25))),
-                              ],
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  month = newValue!;
-                                });
-                              },
-                            ),
-                            SizedBox(width: screen.width * 0.025),
-                            DropdownButton<String>(
-                              value: year,
-                              items: [
-                                for (int i = 2020;
-                                    i <= DateTime.now().year.toInt();
-                                    i++)
-                                  DropdownMenuItem<String>(
-                                      value: i.toString(),
-                                      child: Text(i.toString(),
-                                          style: textStyle(Colors.white70, 17,
-                                              FontWeight.w500, 1, 0.25))),
-                              ],
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  year = newValue!;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Row(children: [
+                      Text("Date : \t$date",style: textStyle(
+                                  Colors.white70, 20, FontWeight.w500, 1, 0.25),),
+                      IconButton(onPressed: () => _selectDate(context),icon: const Icon(Icons.calendar_month, color: Colors.white60,size: 25))
+                    ]
                     ),
                   ),
                 ),
@@ -163,7 +103,7 @@ class _AddTeacherScreenState extends State<AddTeacherScreen> {
                               'Name': name.text,
                               'Email': email.text,
                               'Phone Number': phone.text,
-                              'Joining Date': '$day $month $year'
+                              'Joining Date': date
                             }).then((value) {
                               setState(() {
                                 isLoading = false;
@@ -171,12 +111,7 @@ class _AddTeacherScreenState extends State<AddTeacherScreen> {
                                 phone = TextEditingController(text: '');
                                 email = TextEditingController(text: '');
                               });
-                              showDialog(
-                                  // ignore: use_build_context_synchronously
-                                  context: context,
-                                  builder: (context) {
-                                    return memberAddedBox(context, name, phone, email);
-                                  });
+                              
                             });
                           } on FirebaseAuthException catch (error) {
                             print(error);

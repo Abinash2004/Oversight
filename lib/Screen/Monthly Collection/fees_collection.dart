@@ -19,15 +19,16 @@ class _FeesCollectionState extends State<FeesCollection> {
   @override
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
-    // List<String> admin = ['Admin-1','Admin-2','Both Admin'];
     List<String> stds = ['1','2','3','4','5','6','7','8','9','10','11','12','All'];
     List<String> months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
     final databaseRef = FirebaseDatabase.instance.ref('Payment').child('Fees');
+    
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: accentColor1,
-        title: appBarTitleText('Monthly Fees Details'),
+        title: appBarTitleText('Monthly Fees'),
         leading: leadingBackButton(context)
       ),
       body: 
@@ -41,6 +42,7 @@ class _FeesCollectionState extends State<FeesCollection> {
               color: widgetColor,
               borderRadius: BorderRadius.circular(15)
             ),
+            
             child: Padding(
               padding: const EdgeInsets.only(top:10, left: 15),
               child: Column(
@@ -48,6 +50,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text('Date : ',
@@ -55,6 +58,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                       ),
                     ),
                     SizedBox(width: screen.width*0.1),
+                    
                     DropdownButton<String>(
                       value: month,
                       items: [
@@ -80,6 +84,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                     ],
                   ),
                   SizedBox(height: screen.height*0.015),
+                  
                   Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -90,6 +95,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                         ),
                       ),
                       SizedBox(width: screen.width*0.075),
+                      
                       DropdownButton<String>(
                         value: std,
                         items: [
@@ -105,28 +111,30 @@ class _FeesCollectionState extends State<FeesCollection> {
                         }, 
                       ),
                       SizedBox(width: screen.width*0.1),
+                      
                       ElevatedButton(
                         style: buttonStyle(),
                         onPressed: () {
                           showModalBottomSheet(
-                              context: context,
-                              backgroundColor: widgetColor,
-                              builder: (BuildContext context) {
-                                return Container(
-                                  height: screen.height*0.15,
-                                  decoration: BoxDecoration(
-                                    color: widgetColor,
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(Icons.currency_rupee_rounded, color: accentColor2,size: 40),
-                                      Text(collection.toString(), style: textStyle(Colors.white70, 40, FontWeight.w500, 1, 0.25))
-                                    ],
-                                  )
-                                );
-                              }
+                            context: context,
+                            backgroundColor: widgetColor,
+                            builder: (BuildContext context) {
+                              
+                              return Container(
+                                height: screen.height*0.15,
+                                decoration: BoxDecoration(
+                                  color: widgetColor,
+                                  borderRadius: BorderRadius.circular(25)
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.currency_rupee_rounded, color: accentColor2,size: 40),
+                                    Text(collection.toString(), style: textStyle(Colors.white70, 40, FontWeight.w500, 1, 0.25))
+                                  ],
+                                )
+                              );
+                            }
                           );
                         },
                         child: buttonText('Collection')

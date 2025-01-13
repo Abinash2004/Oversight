@@ -24,7 +24,7 @@ class _SalaryCollectionState extends State<SalaryCollection> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: accentColor1,
-        title: appBarTitleText('Monthly Salary Details'),
+        title: appBarTitleText('Monthly Salary'),
         leading: leadingBackButton(context)
       ),
       body: 

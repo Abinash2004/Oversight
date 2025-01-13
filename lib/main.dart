@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:finance_tracker/Account/Login/login_screen.dart';
+import 'package:finance_tracker/Screen/Login/login_screen.dart';
 import 'package:finance_tracker/Elements/functions.dart';
-import 'package:finance_tracker/home_screen.dart';
+import 'package:finance_tracker/Screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

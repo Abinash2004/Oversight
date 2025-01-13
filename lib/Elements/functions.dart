@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Elements/widgets.dart';
-import 'package:finance_tracker/Account/Login/login_screen.dart';
+import 'package:finance_tracker/Screen/Login/login_screen.dart';
 import 'package:finance_tracker/main.dart';
-import 'package:finance_tracker/Payment/payment.dart';
+import 'package:finance_tracker/Screen/Payment/payment.dart';
 
 //------------------------------------------------
 // ---------------Login Functions-----------------
@@ -267,27 +267,11 @@ Future<void> feesPayment(var context,var amount, String day, String month, Strin
       'Date' : '$day $month $year',
       'By' : MyApp.name,
     });
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Successfully Saved !',style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25)),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: buttonStyle(),
-              onPressed: () {
-                amount = TextEditingController(text: '');
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-              child: const Text('OK',style: TextStyle(color: Colors.white,fontSize: 17.5)),
-            ),
-          ],
-        ),
-      );
-    });
+
+    snackbar('Successfully Saved !', context);
+    amount = TextEditingController(text: '');
+    Navigator.pop(context);
+    Navigator.pop(context);
   } on FirebaseException catch (error) {
     print(error);
   }
@@ -304,34 +288,13 @@ Future<void> salaryPayment(var context,var amount, String day, String month, Str
       'Date' : '$day $month $year',
       'By' : MyApp.name,
     });
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Successfully Saved !',style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25)),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: buttonStyle(),
-              onPressed: () {
-                amount = TextEditingController(text: '');
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-              child: const Text('OK',style: TextStyle(color: Colors.white,fontSize: 17.5)),
-            ),
-          ],
-        ),
-      );
-    });
+    
+    snackbar('Successfully Saved !', context);
+    amount = TextEditingController(text: '');
+    Navigator.pop(context);
+    Navigator.pop(context);
+
   } on FirebaseException catch (error) {
     print(error);
   }
 }
-
-//-----------------------------------------------
-//---------Add Member Screen Function -----------
-//-----------------------------------------------
-
-

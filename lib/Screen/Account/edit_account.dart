@@ -2,13 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Elements/widgets.dart';
+import 'package:intl/intl.dart';
 
 class EditAccountScreen extends StatefulWidget {
   const EditAccountScreen({super.key});
   static String editUser = '';
-  static bool isLocal = false;
-  static String localFile = '';
-  static String picture = '';
   static String name = '';
   static String email = '';
   static String phoneNumber = '';
@@ -23,11 +21,29 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
 
   final GlobalKey<FormState> key = GlobalKey<FormState>();
   var name = TextEditingController(text: EditAccountScreen.name);
-  var joiningDate = TextEditingController(text: EditAccountScreen.joiningDate);
   String std = EditAccountScreen.std;
   String day = DateTime.now().day.toString();
   bool isLoading = false;
   
+  DateTime? selectedDate;
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(data: ThemeData.dark(),child: child!);
+      },
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = DateTime(picked.year, picked.month, picked.day);
+        EditAccountScreen.joiningDate = DateFormat('dd / MM / yyyy').format(selectedDate!);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
@@ -35,15 +51,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: accentColor1,
-        leading: IconButton(
-          onPressed: () {
-            EditAccountScreen.isLocal = false;
-            EditAccountScreen.localFile = '';
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back,color: Colors.white),
-        ),
-        title: appBarTitleText('Edit ${EditAccountScreen.editUser} Account'),
+        title: appBarTitleText('Edit ${EditAccountScreen.editUser}'),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 50,left: 25,right: 25),
@@ -98,7 +106,23 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                 SizedBox(height: screen.height*0.025),
 
                 
-                (EditAccountScreen.editUser != 'Admin') ? addTextFormField('Joining Date',joiningDate,const Icon(Icons.date_range, color: Colors.white54),true) : const SizedBox(),
+                (EditAccountScreen.editUser != 'Admin') ? Container(
+                  height: screen.width * 0.16,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: widgetColor,
+                      border: Border.all(color: accentColor2, width: 2),
+                      borderRadius: BorderRadius.circular(25)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Row(children: [
+                      Text("Date : \t${EditAccountScreen.joiningDate}",style: textStyle(
+                                  Colors.white70, 20, FontWeight.w500, 1, 0.25),),
+                      IconButton(onPressed: () => _selectDate(context),icon: const Icon(Icons.calendar_month, color: Colors.white60,size: 25))
+                    ]
+                    ),
+                  ),
+                ) : const SizedBox(),
                 SizedBox(height: screen.height*0.025),
             
                 SizedBox(
@@ -116,11 +140,11 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                               'Name' : EditAccountScreen.name,
                               'Email' : EditAccountScreen.email,
                               'Phone Number' : EditAccountScreen.phoneNumber
-                            } :
+                            } : 
                             (EditAccountScreen.editUser == 'Teacher') ? {
                               'Name' : name.text,
                               'Email' : EditAccountScreen.email,
-                              'Joining Date' : joiningDate.text,
+                              'Joining Date' : EditAccountScreen.joiningDate,
                               'Phone Number' : EditAccountScreen.phoneNumber
                             } :
                             (EditAccountScreen.editUser == 'Student') ? {
@@ -133,15 +157,16 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                             } : null
                           );
         
-                          if(EditAccountScreen.localFile.isNotEmpty) {}
-                          else {
-                            setState(() {
-                                isLoading = false;
-                              });
-                            showDialog(context: context, builder: (context) {
-                              return memberEditedBox(context, name);
-                            });
-                          }
+                          setState(() {isLoading = false;});
+                            EditAccountScreen.editUser = '';
+                            EditAccountScreen.name = '';
+                            EditAccountScreen.phoneNumber = '';
+                            EditAccountScreen.joiningDate = '';
+                            EditAccountScreen.std = '';
+                            
+                            snackbar("Successfully Modified !", context);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
                         } on FirebaseAuthException catch(error) {
                           print(error);
                         }

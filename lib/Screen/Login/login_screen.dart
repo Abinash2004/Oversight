@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Elements/functions.dart';
 import 'package:finance_tracker/Elements/widgets.dart';
-import 'package:finance_tracker/Account/Login/code_screen.dart';
+import 'package:finance_tracker/Screen/Login/code_screen.dart';
 import 'package:finance_tracker/main.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final phoneNumber = TextEditingController();
   final email = TextEditingController();
   bool isLoading = false;
-  // String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: accentColor1,
-        title: loginTitleText('FINANCE TRACKER'),
+        title: loginTitleText('OVERSIGHT'),
       ),
 
       body: Padding(
@@ -52,14 +51,15 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-                  setState(() {isLoading = true;});
-
-                  if(email.text.isEmpty) {
+                  setState(() {LoginScreen.error = '';});
+                  if (email.text.isEmpty) {
                     setState(() {
-                      LoginScreen.error = 'Email is Required';
+                      LoginScreen.error = 'Email is required';
                       isLoading = false;
                     });
                   } else {
+                    setState(() {isLoading = true;});
+                    
                     String modifiedEmail = email.text.replaceFirst(RegExp(r'\.[^.]*$'), '');
                     await userCheck(modifiedEmail);
                     setState(() {
