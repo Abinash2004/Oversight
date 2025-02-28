@@ -1,3 +1,4 @@
+import 'package:finance_tracker/Screen/Announcement/announcement.dart';
 import 'package:flutter/material.dart';
 import 'package:finance_tracker/Screen/Account/account_screen.dart';
 import 'package:finance_tracker/Screen/Account/edit_account.dart';
@@ -166,6 +167,10 @@ AppBar homeScreenAppBar(var context){
     backgroundColor: accentColor1,
     automaticallyImplyLeading: false,
     actions: [
+
+      IconButton(onPressed: () {
+        Navigator.push(context,MaterialPageRoute(builder:(context) => const AnnouncementScreen()));
+      }, icon: const Icon(Icons.notifications_active)),
       IconButton(
         onPressed: () {
           AccountScreen.user = MyApp.user;
@@ -424,6 +429,36 @@ Widget addTextFormField(var text,var controller, var icon, bool isName) {
   );
 }
 
+Widget addTextArea(String text, TextEditingController controller, Icon icon) {
+  var defaultBorder = const OutlineInputBorder(
+    borderSide: BorderSide(style: BorderStyle.solid, width: 2, color: accentColor2),
+    borderRadius: BorderRadius.all(Radius.circular(30)),
+  );
+
+  return TextFormField(
+    controller: controller,
+    maxLines: 10, // Makes it a text area with 10 rows
+    keyboardType: TextInputType.multiline,
+    cursorColor: accentColor2,
+    style: textStyle(Colors.white70, 18, FontWeight.w400, 2, 0.25), // Adjust font size
+
+    decoration: InputDecoration(
+      contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20), // Adjust padding
+      filled: true,
+      fillColor: const Color.fromARGB(255, 40, 40, 40), // Background color
+      errorStyle: textStyle(Colors.redAccent, 15, FontWeight.w500, 0.5, 0.25),
+      floatingLabelStyle: textStyle(accentColor2, 22, FontWeight.w500, 0.3, 0.25),
+      
+      // Apply consistent border styling
+      enabledBorder: defaultBorder,
+      focusedBorder: defaultBorder,
+      errorBorder: defaultBorder,
+      focusedErrorBorder: defaultBorder,
+    ),
+  );
+}
+
+
 //-----------------------------------------------
 //---------Member List Screen Widgets------------
 //-----------------------------------------------
@@ -571,5 +606,30 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackbar(var text, var
         ),
       )
     )
+  );
+}
+
+
+
+//-----------------------------------------------
+//--------Announcement Screen Widgets------------
+//-----------------------------------------------
+
+
+Widget announcementTitle(text) {
+  return Align(
+    alignment: Alignment.center,
+    child: Text(text,
+      style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0),
+    ),
+  );
+}
+
+Widget announcementDesc(text) {
+  return Align(
+    alignment: Alignment.centerLeft,
+    child: Text(text,
+      style: textStyle(Colors.white70, 15, FontWeight.w500, 0.5, 0),
+    ),
   );
 }
