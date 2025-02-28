@@ -23,12 +23,20 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         title: loginTitleText('OVERSIGHT'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(2.0), // Height of the underline
+          child: Container(
+            color: accentColor2, // Change to your desired underline color
+            height: 0.5, // Thickness of the underline
+          ),
+        ),
       ),
+
 
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -47,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 10),
             
             SizedBox(
-              height: 45,
+              height: 55,
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
@@ -89,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextButton(
                   onPressed: () {setState(() {userSwitch(true);});},
                   child: Text(userSwitchText(true,context),
-                    style: textStyle(Colors.white70, 15, FontWeight.w400, 1, 0.25),
+                    style: textStyle(primaryTextColor, 15, FontWeight.w400, 1, 0.25),
                   ),
                 ),
       
@@ -98,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextButton(
                   onPressed: () {setState(() {userSwitch(false);});},
                   child: Text(userSwitchText(false,context),
-                    style: textStyle(Colors.white70, 15, FontWeight.w400, 1, 0.25),
+                    style: textStyle(primaryTextColor, 15, FontWeight.w400, 1, 0.25),
                   ),
                 ),
               ],

@@ -22,9 +22,10 @@ class _PaymentHistoryState extends State<PaymentHistory> {
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
+        leading: leadingBackButton(context),
         title: appBarTitleText('Payment History'),
       ),
       body: Column(
@@ -52,6 +53,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
             ),
           ) : const SizedBox(),
           SizedBox(height: screen.height*0.01),
+          
           (MyApp.user == 'Admin' && PaymentHistory.user == 'Teacher') ? Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Container(
@@ -76,12 +78,13 @@ class _PaymentHistoryState extends State<PaymentHistory> {
             ),
           ) : const SizedBox(),
           SizedBox(height: screen.height*0.01),
+          
           Expanded(
             child: StreamBuilder(
               stream:databaseRef.onValue,
               builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
                 if(snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator(color: Colors.white70));
+                  return const Center(child: CircularProgressIndicator(color: primaryTextColor));
                 }
                 else if (snapshot.data!.snapshot.children.isEmpty) {
                   return const Center(child: Text('No Payment Record',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)));

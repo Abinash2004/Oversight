@@ -15,29 +15,30 @@ class AnnouncementScreen extends StatefulWidget {
 }
 
 class _AnnouncementScreenState extends State<AnnouncementScreen> {
+
   final databaseRef = FirebaseDatabase.instance.ref('Announcement');
+
   @override
   Widget build(BuildContext context) {
     var screen = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.black,
+      
+      backgroundColor: bgColor,
+      
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        leading: leadingBackButton(context),
+        backgroundColor: bgColor,
         title: appBarTitleText('Announcements'),
       ),
-      floatingActionButton: (MyApp.user != 'Student')
-          ? FloatingActionButton(
-              backgroundColor: accentColor1, // Change color if needed
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CreateAnnouncement()));
-              },
-              child:
-                  const Icon(Icons.add, color: Colors.white), // Icon inside FAB
-            )
-          : null,
+      
+      floatingActionButton: (MyApp.user != 'Student') ? FloatingActionButton(
+        backgroundColor: accentColor1, // Change color if needed
+        onPressed: () {
+          Navigator.push(context,MaterialPageRoute(builder: (context) => const CreateAnnouncement()));
+        },
+        child: const Icon(Icons.add, color: primaryTextColor), // Icon inside FAB
+      ) : null,
+      
       body: Column(
         children: [
           Expanded(
@@ -48,24 +49,19 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
                   return const Center(
                     child: CircularProgressIndicator(color: Colors.white70),
                   );
-                } else if (!snapshot.hasData ||
-                    snapshot.data!.snapshot.value == null) {
+                } else if (!snapshot.hasData || snapshot.data!.snapshot.value == null) {
                   return Center(
-                    child: Text(
-                      'No Data Available',
-                      style: textStyle(
-                          Colors.white70, 20, FontWeight.w500, 1, 0.25),
+                    child: Text('No Data Available',
+                      style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25),
                     ),
                   );
                 } else {
                   // Process the data
-                  Map<dynamic, dynamic> map =
-                      snapshot.data!.snapshot.value as dynamic;
+                  Map<dynamic, dynamic> map = snapshot.data!.snapshot.value as dynamic;
                   List<dynamic> list = map.values.toList();
 
                   // Correct DateTime format parser
-                  DateFormat format =
-                      DateFormat("dd-MM-yyyy HH'H'-mm'M'-ss'S'");
+                  DateFormat format = DateFormat("dd-MM-yyyy HH'H'-mm'M'-ss'S'");
 
                   // Sort in DESCENDING order based on 'Date' field (latest first)
                   list.sort((a, b) {
@@ -87,15 +83,9 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
                             ViewAnnouncement.desc = list[index]['Description'];
                             ViewAnnouncement.date = list[index]['Date'];
                             ViewAnnouncement.author = list[index]['Author'];
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ViewAnnouncement(),
-                              ),
-                            );
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => const ViewAnnouncement()));
                           },
                           onLongPress: (MyApp.user != "Student") ? () {
-
                             deletAccount(context, screen, databaseRef, "this announcement", list[index]['Date']);  
                           } : null
                         ),

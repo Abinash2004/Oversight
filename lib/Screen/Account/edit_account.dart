@@ -48,9 +48,10 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
+        leading: leadingBackButton(context),
         title: appBarTitleText('Edit ${EditAccountScreen.editUser}'),
       ),
       body: Padding(
@@ -71,7 +72,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: widgetColor,
-                    border: Border.all(color: accentColor2,width: 2),
+                    border: Border.all(color: accentColor2,width: 1),
                     borderRadius: BorderRadius.circular(25)
                   ),
                   child: Padding(
@@ -81,7 +82,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text('Class\t:',
-                            style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25),
+                            style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25),
                           ),
                         ),
                         SizedBox(width: screen.width*0.05),
@@ -91,7 +92,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                             for(int i = 1; i < 13; i++)
                             DropdownMenuItem<String>(
                               value: i.toString(),
-                              child: Text(i.toString(),style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                              child: Text(i.toString(),style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                           ], 
                           onChanged:(String? newValue) {
                             setState(() {
@@ -111,13 +112,13 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: widgetColor,
-                      border: Border.all(color: accentColor2, width: 2),
+                      border: Border.all(color: accentColor2, width: 1),
                       borderRadius: BorderRadius.circular(25)),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Row(children: [
                       Text("Date : \t${EditAccountScreen.joiningDate}",style: textStyle(
-                                  Colors.white70, 20, FontWeight.w500, 1, 0.25),),
+                                  primaryTextColor, 20, FontWeight.w500, 1, 0.25),),
                       IconButton(onPressed: () => _selectDate(context),icon: const Icon(Icons.calendar_month, color: Colors.white60,size: 25))
                     ]
                     ),
@@ -172,7 +173,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
                         }
                       }
                     },
-                    child: isLoading ? const SizedBox( height: 25, width: 25, child: CircularProgressIndicator.adaptive(strokeWidth: 3,valueColor: AlwaysStoppedAnimation<Color>(Colors.white70))) :
+                    child: isLoading ? const SizedBox( height: 25, width: 25, child: CircularProgressIndicator.adaptive(strokeWidth: 3,valueColor: AlwaysStoppedAnimation<Color>(primaryTextColor))) :
                     buttonText('Save'),
                   )
                 )

@@ -31,7 +31,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     final screen = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: paymentScreenAppBar(context,'Payment'),
       body: Padding(
             padding: const EdgeInsets.all(20),
@@ -51,7 +51,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: widgetColor,
-                    border: Border.all(color: accentColor2,width: 2),
+                    border: Border.all(color: accentColor2,width: 1),
                     borderRadius: BorderRadius.circular(25)
                   ),
                   child: Padding(
@@ -62,7 +62,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text((MemberList.user == 'Student') ? 'Fees Paid Date' : 'Salary Paid Date',
-                            style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25),
+                            style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25),
                           ),
                         ),
                         SizedBox(height: screen.height*0.015),
@@ -73,7 +73,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               value: day,
                               items: [
                                 for(int i = 1; i < 32; i++)
-                                  DropdownMenuItem<String>(value: i.toString(),child: Text(i.toString(),style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                                  DropdownMenuItem<String>(value: i.toString(),child: Text(i.toString(),style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                               ], 
                               onChanged:(String? newValue) {
                                 setState(() {
@@ -87,7 +87,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               items: [
                                 for(int i = 0; i < 12; i++)
                                   DropdownMenuItem<String>(value: months[i],child:
-                                   Text(months[i],style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                                   Text(months[i],style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                               ], 
                               onChanged:(String? newValue) {
                                 setState(() {
@@ -100,7 +100,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               value: year,
                               items: [
                                 for(int i = 2020; i <= DateTime.now().year.toInt(); i++)
-                                  DropdownMenuItem<String>(value: i.toString(),child: Text(i.toString(),style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                                  DropdownMenuItem<String>(value: i.toString(),child: Text(i.toString(),style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                               ], 
                               onChanged:(String? newValue) {
                                 setState(() {
@@ -133,7 +133,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           setState(() {isLoading = false;});
                         }
                       },
-                      child: isLoading ? const SizedBox( height: 25, width: 25, child: CircularProgressIndicator.adaptive(strokeWidth: 3,valueColor: AlwaysStoppedAnimation<Color>(Colors.white70))) :
+                      child: isLoading ? const SizedBox( height: 25, width: 25, child: CircularProgressIndicator.adaptive(strokeWidth: 3,valueColor: AlwaysStoppedAnimation<Color>(primaryTextColor))) :
                     buttonText('Save'),
                   )
                 )

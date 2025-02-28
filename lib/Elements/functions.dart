@@ -216,31 +216,31 @@ Future<void> deletAccount(var context,var screen, var databaseRef, String name ,
       title: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Are you sure to remove',style: textStyle(Colors.white70, 17, FontWeight.w400, 1, 0.25)),
+          Text('Are you sure to remove',style: textStyle(primaryTextColor, 17, FontWeight.w400, 1, 0.25)),
           const SizedBox(height: 10),
-          Text('$name ?',style: textStyle(Colors.white70, 17, FontWeight.w400, 1, 0.25)),
+          Text('$name ?',style: textStyle(primaryTextColor, 17, FontWeight.w400, 1, 0.25)),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) => states.contains(WidgetState.pressed) ? null : accentColor1),
+                  backgroundColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) => states.contains(WidgetState.pressed) ? null : accentColor2),
                 ),
                 onPressed: () async {
                   await databaseRef.child(email.replaceFirst(RegExp(r'\.[^.]*$'), '')).set(null).then((value) {Navigator.pop(context);});
                 },
-                child: Text('Yes',style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25)),
+                child: Text('Yes',style: textStyle(accentColor1, 17, FontWeight.w500, 1, 0.25)),
               ),
               SizedBox(width: screen.width*0.15),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) => states.contains(WidgetState.pressed) ? null : accentColor1),
+                  backgroundColor: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) => states.contains(WidgetState.pressed) ? null : accentColor2),
                 ),
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('No',style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25)),
+                child: Text('No',style: textStyle(accentColor1, 17, FontWeight.w500, 1, 0.25)),
               ),
               ],
             ),

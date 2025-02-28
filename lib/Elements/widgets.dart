@@ -17,9 +17,11 @@ import 'package:pinput/pinput.dart';
 // ---------------Global Widgets------------------
 //------------------------------------------------
 
-const accentColor1 = Color.fromARGB(255, 0, 90, 100);
-const accentColor2 = Color.fromARGB(255, 0, 130, 150);
-const widgetColor = Color.fromARGB(255, 30, 30, 30);
+const Color bgColor = Color(0xFF0a0908);
+const Color primaryTextColor = Color(0xFF9999a1);
+const Color widgetColor = Color(0xFF212529);
+const Color accentColor1 = Color(0xFF1b263b);
+const Color accentColor2 = Color(0xFF778da9);
 
 //Global Text Style
 TextStyle textStyle(var color, double size, var fontWeight, double lspacing, double wspacing) {
@@ -36,7 +38,7 @@ TextStyle textStyle(var color, double size, var fontWeight, double lspacing, dou
 Widget buttonText(String text) {
   return Center(
     child: Text(text,
-      style: textStyle(Colors.white70, 20, FontWeight.w500, 0.3, 0.25),
+      style: textStyle(primaryTextColor, 20, FontWeight.w500, 0.3, 0.25),
     ),
   );
 }
@@ -51,7 +53,7 @@ ButtonStyle buttonStyle() {
 // Global App Bar back button
 Widget leadingBackButton(context) {
   return IconButton(
-    onPressed: () {Navigator.pop(context);}, icon: const Icon(Icons.arrow_back,color: Colors.white));
+    onPressed: () {Navigator.pop(context);}, icon: const Icon(Icons.arrow_back,color: accentColor2));
 }
 
 //------------------------------------------------
@@ -62,7 +64,7 @@ Widget leadingBackButton(context) {
 Widget loginTitleText(String text) {
   return Center(
     child: Text(text,
-      style: textStyle(Colors.white, 20, FontWeight.w500, 2.5, 5),
+      style: textStyle(accentColor2, 20, FontWeight.w500, 2.5, 5),
     ),
   );
 }
@@ -73,8 +75,8 @@ Widget headingText(String text, bool isheading) {
     alignment: Alignment.centerLeft,
     child: Text(text,
       style: isheading ? 
-      textStyle(Colors.white70, 35, FontWeight.w500, 1, 0.25):
-      textStyle(Colors.white70, 15, FontWeight.w300, 1, 0.25),
+      textStyle(primaryTextColor, 35, FontWeight.w500, 1, 0.25):
+      textStyle(primaryTextColor, 15, FontWeight.w300, 1, 0.25),
     ),
   );
 }
@@ -92,21 +94,21 @@ Widget emailTextFormField(var email) {
     controller: email,
     keyboardType: TextInputType.emailAddress,
     cursorColor: accentColor2,
-    style: textStyle(Colors.white70, 20, FontWeight.w400, 0, 0),
+    style: textStyle(primaryTextColor, 20, FontWeight.w400, 0, 0),
 
     decoration: InputDecoration(
       
       contentPadding: const EdgeInsets.only(top: 15, bottom: 15, left: 20),
       filled: true,
-      fillColor: const Color.fromARGB(255, 50, 50, 50),
-      prefixIcon: const Icon(Icons.mail_rounded, color: Colors.white54),
+      fillColor: widgetColor,
+      prefixIcon: const Icon(Icons.mail_rounded, color: primaryTextColor),
       
       labelText: 'Email',
-      labelStyle: textStyle(Colors.white54, 20, FontWeight.w500, 0.5, 0.25),
+      labelStyle: textStyle(primaryTextColor, 20, FontWeight.w500, 0.5, 0.25),
       floatingLabelStyle: textStyle(accentColor2, 23, FontWeight.w500, 0.3, 0.25),
       enabledBorder: defaultBorder,
       focusedBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 0.5),
       ),
     ),
   );
@@ -117,7 +119,7 @@ Widget loginTextButton(bool isleft, var context) {
   return TextButton(
     onPressed: () {userSwitch(isleft);},
     child: Text(userSwitchText(isleft,context),
-      style: textStyle(Colors.white70, 15, FontWeight.w400, 1, 0.25),
+      style: textStyle(primaryTextColor, 15, FontWeight.w400, 1, 0.25),
     ),
   );
 }
@@ -126,7 +128,7 @@ Widget loginTextButton(bool isleft, var context) {
 Pinput pinPutOTP(var otpCode) {
   final defaultPinTheme = PinTheme(
       width: 50,height: 50,
-      textStyle: textStyle(Colors.white70, 20, FontWeight.w500, 0.3, 0.25),
+      textStyle: textStyle(primaryTextColor, 20, FontWeight.w500, 0.3, 0.25),
       decoration: BoxDecoration(
         color: widgetColor,
         borderRadius: BorderRadius.circular(20),
@@ -134,7 +136,7 @@ Pinput pinPutOTP(var otpCode) {
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: accentColor1,width: 2.5),
+      border: Border.all(color: accentColor2,width: 1),
       borderRadius: BorderRadius.circular(10),
     );
 
@@ -155,6 +157,7 @@ Pinput pinPutOTP(var otpCode) {
 Widget appBarTitleText(String text) {
   return Text(text, style: const TextStyle(
     fontSize: 25,
+    color: accentColor2,
     fontWeight: FontWeight.w600
   ));
 }
@@ -164,25 +167,28 @@ AppBar homeScreenAppBar(var context){
   return AppBar(
     // toolbarHeight: 75,
     title: appBarTitleText("Dashboard"),
-    backgroundColor: accentColor1,
+    backgroundColor: bgColor,
     automaticallyImplyLeading: false,
     actions: [
 
       IconButton(onPressed: () {
         Navigator.push(context,MaterialPageRoute(builder:(context) => const AnnouncementScreen()));
-      }, icon: const Icon(Icons.notifications_active)),
-      IconButton(
-        onPressed: () {
-          AccountScreen.user = MyApp.user;
-          AccountScreen.name = MyApp.name;
-          AccountScreen.email = MyApp.email;
-          AccountScreen.phoneNumber = MyApp.phoneNumber;
-          AccountScreen.joiningDate = MyApp.joiningDate;
-          AccountScreen.std = MyApp.grade;
-          AccountScreen.isLogOut = true;
-          Navigator.push(context,MaterialPageRoute(builder:(context) => const AccountScreen()));
-        },
-        icon: const Icon(Icons.account_circle,size: 40),
+      }, icon: const Icon(Icons.notifications_active,color: accentColor2, size: 25,)),
+      Padding(
+        padding: const EdgeInsets.only(right: 7.5),
+        child: IconButton(
+          onPressed: () {
+            AccountScreen.user = MyApp.user;
+            AccountScreen.name = MyApp.name;
+            AccountScreen.email = MyApp.email;
+            AccountScreen.phoneNumber = MyApp.phoneNumber;
+            AccountScreen.joiningDate = MyApp.joiningDate;
+            AccountScreen.std = MyApp.grade;
+            AccountScreen.isLogOut = true;
+            Navigator.push(context,MaterialPageRoute(builder:(context) => const AccountScreen()));
+          },
+          icon: const Icon(Icons.account_circle, color: accentColor2,size: 40),
+        ),
       ),
     ],
   );
@@ -191,7 +197,7 @@ AppBar homeScreenAppBar(var context){
 Widget homeScreenHeading(String text)  {
   return Align(
     alignment: Alignment.centerLeft,
-    child: Text(text,style: textStyle(Colors.white70, 25, FontWeight.w500, 2, 0.3)),
+    child: Text(text,style: textStyle(primaryTextColor, 25, FontWeight.w500, 1, 0.3)),
     );
 }
 
@@ -222,14 +228,14 @@ Widget monthlyCollectionBox(var screen,String text, var context) {
             Align(
               alignment: Alignment.topLeft,
               child: Text(text,
-                style: textStyle(Colors.white70, 25, FontWeight.w500, 0.5, 0),
+                style: textStyle(primaryTextColor, 25, FontWeight.w500, 0.5, 0),
               ),
             ),
             SizedBox(height: screen.height*0.022),
-            const Icon(Icons.currency_rupee_rounded,size: 50,color: Color.fromARGB(255, 0, 130, 150)),
+            const Icon(Icons.currency_rupee_rounded,size: 50,color: accentColor2),
             SizedBox(height: screen.height*0.022),
             Align(
-              alignment: Alignment.bottomLeft,child: Text('Monthly',style: textStyle(Colors.white70, 15, FontWeight.w300, 0.5, 0))),
+              alignment: Alignment.bottomLeft,child: Text('Monthly',style: textStyle(primaryTextColor, 15, FontWeight.w300, 0.5, 0))),
           ],
         ),
       )
@@ -270,7 +276,7 @@ Widget memberListContainer(var screen,String text, var context) {
           const Icon(Icons.person_rounded,color: accentColor2,size: 25),
           SizedBox(width: screen.width*0.05),
           Text(text,
-            style: textStyle(Colors.white70, 17, FontWeight.w400, 1, 0.3),
+            style: textStyle(primaryTextColor, 17, FontWeight.w400, 1, 0.3),
           )
         ],
       )
@@ -304,7 +310,7 @@ Widget addTeacherStudentContainer(context,screen, text) {
           const Icon(Icons.add,color: accentColor2,size: 25),
           SizedBox(width: screen.width*0.025),
           Text(text,
-            style: textStyle(Colors.white70, 17, FontWeight.w400, 1, 0),
+            style: textStyle(primaryTextColor, 17, FontWeight.w400, 1, 0),
           ),
         ],
       )
@@ -336,7 +342,7 @@ Widget paymentHistoryContainer(var screen,String text, var context) {
           const Icon(Icons.history,color: accentColor2),
           SizedBox(width: screen.width*0.05),
           Text(text,
-            style: textStyle(Colors.white70, 17, FontWeight.w400, 1, 0.3),
+            style: textStyle(primaryTextColor, 17, FontWeight.w400, 1, 0.3),
           )
         ],
       )
@@ -350,7 +356,7 @@ Widget paymentHistoryContainer(var screen,String text, var context) {
 
 AppBar accountScreenAppBar(context) {
   return AppBar(
-    backgroundColor: accentColor1,
+    backgroundColor: bgColor,
     leading: IconButton(
     onPressed: () {
       AccountScreen.user = '';
@@ -361,7 +367,7 @@ AppBar accountScreenAppBar(context) {
       AccountScreen.picture = '';
       AccountScreen.isLogOut = false;
       Navigator.pop(context);
-      }, icon: const Icon(Icons.arrow_back,color: Colors.white)),
+      }, icon: const Icon(Icons.arrow_back,color: accentColor2)),
     title: appBarTitleText('Account Information'),
   );
 }
@@ -370,7 +376,7 @@ AppBar accountScreenAppBar(context) {
 Widget accountName(text) {
   return Text(text,
   textAlign: TextAlign.center,
-    style: textStyle(Colors.white70, 25, FontWeight.w500, 2, 0.25),
+    style: textStyle(primaryTextColor, 25, FontWeight.w500, 2, 0.25),
   );
 }
 
@@ -379,7 +385,7 @@ Widget accountDetails(String text) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Text(text,
-      style: textStyle(Colors.white70, 17, FontWeight.w500, 0.5, 0.25),
+      style: textStyle(primaryTextColor, 17, FontWeight.w500, 0.5, 0.25),
     ),
   );
 }
@@ -392,7 +398,7 @@ Widget accountDetails(String text) {
 Widget addTextFormField(var text,var controller, var icon, bool isName) {
 
   var defaultBorder = const OutlineInputBorder(
-        borderSide: BorderSide(style: BorderStyle.solid, width: 0),
+        borderSide: BorderSide(style: BorderStyle.solid, width: 1),
         borderRadius: BorderRadius.all(Radius.circular(30)),
       );
 
@@ -401,29 +407,29 @@ Widget addTextFormField(var text,var controller, var icon, bool isName) {
     controller: controller,
     keyboardType: isName?TextInputType.name: TextInputType.phone,
     cursorColor: accentColor2,
-    style: isName?textStyle(Colors.white70, 20, FontWeight.w400, 2, 0.25) :textStyle(Colors.white70, 22, FontWeight.w400, 10, 0.25),
+    style: isName?textStyle(primaryTextColor, 20, FontWeight.w400, 2, 0.25) :textStyle(primaryTextColor, 22, FontWeight.w400, 10, 0.25),
 
     decoration: InputDecoration(
       
       contentPadding: const EdgeInsets.only(top: 15, bottom: 15, left: 20),
       filled: true,
-      fillColor: const Color.fromARGB(255, 40, 40, 40),
+      fillColor: widgetColor,
       prefixIcon: icon,
       errorStyle: textStyle(Colors.redAccent, 15, FontWeight.w500, 0.5, 0.25),
       labelText: text,
-      labelStyle: textStyle(Colors.white54, 20, FontWeight.w500, 0.5, 0.25),
+      labelStyle: textStyle(primaryTextColor, 20, FontWeight.w500, 0.5, 0.25),
       floatingLabelStyle: textStyle(accentColor2, 23, FontWeight.w500, 0.3, 0.25),
       enabledBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2)
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1)
       ),
       errorBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: Colors.redAccent,style: BorderStyle.solid,width: 1),
       ),
       focusedErrorBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1),
       ),
       focusedBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1),
       ),
     ),
   );
@@ -431,7 +437,7 @@ Widget addTextFormField(var text,var controller, var icon, bool isName) {
 
 Widget addTextArea(String text, TextEditingController controller, Icon icon) {
   var defaultBorder = const OutlineInputBorder(
-    borderSide: BorderSide(style: BorderStyle.solid, width: 2, color: accentColor2),
+    borderSide: BorderSide(style: BorderStyle.solid, width: 1, color: accentColor2),
     borderRadius: BorderRadius.all(Radius.circular(30)),
   );
 
@@ -440,20 +446,28 @@ Widget addTextArea(String text, TextEditingController controller, Icon icon) {
     maxLines: 10, // Makes it a text area with 10 rows
     keyboardType: TextInputType.multiline,
     cursorColor: accentColor2,
-    style: textStyle(Colors.white70, 18, FontWeight.w400, 2, 0.25), // Adjust font size
+    style: textStyle(primaryTextColor, 18, FontWeight.w400, 1, 0.25), // Adjust font size
 
     decoration: InputDecoration(
       contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20), // Adjust padding
       filled: true,
-      fillColor: const Color.fromARGB(255, 40, 40, 40), // Background color
+      fillColor: widgetColor, // Background color
       errorStyle: textStyle(Colors.redAccent, 15, FontWeight.w500, 0.5, 0.25),
       floatingLabelStyle: textStyle(accentColor2, 22, FontWeight.w500, 0.3, 0.25),
       
       // Apply consistent border styling
-      enabledBorder: defaultBorder,
-      focusedBorder: defaultBorder,
-      errorBorder: defaultBorder,
-      focusedErrorBorder: defaultBorder,
+      enabledBorder: defaultBorder.copyWith(
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1)
+      ),
+      errorBorder: defaultBorder.copyWith(
+        borderSide: const BorderSide(color: Colors.redAccent,style: BorderStyle.solid,width: 1),
+      ),
+      focusedErrorBorder: defaultBorder.copyWith(
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1),
+      ),
+      focusedBorder: defaultBorder.copyWith(
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1),
+      ),
     ),
   );
 }
@@ -467,7 +481,7 @@ Widget addTextArea(String text, TextEditingController controller, Icon icon) {
 // List Tile Title
 Widget memberListTitle(String text) {
   return Text(text, 
-    style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25)
+    style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25)
   );
 }
 
@@ -518,7 +532,7 @@ Widget memberListIconButton(var context, var screen, var icon, var databaseRef, 
 Widget memberListText(String text) {
   return Text(text,
   textAlign: TextAlign.center,
-  style: textStyle(Colors.white70, 12, FontWeight.w300, 0.5, 0.25),);
+  style: textStyle(primaryTextColor, 12, FontWeight.w300, 0.5, 0.25),);
 }
 
 //-----------------------------------------------
@@ -528,23 +542,14 @@ Widget memberListText(String text) {
 // payment screen app bar widget
 AppBar paymentScreenAppBar(context,String text) {
   return AppBar(
-    backgroundColor: accentColor1,
+    backgroundColor: bgColor,
     leading: IconButton(
     onPressed: () {
       AccountScreen.name = '';
       AccountScreen.phoneNumber = '';
       Navigator.pop(context);
-      }, icon: const Icon(Icons.arrow_back,color: Colors.white)),
+      }, icon: const Icon(Icons.arrow_back,color: accentColor2)),
     title: appBarTitleText(text),
-    actions: [
-      AccountScreen.isLogOut ? IconButton(
-        padding: const EdgeInsets.all(20),
-        onPressed: () {
-          logoutAccount(context);
-        },
-        icon: const Icon(Icons.logout,color: Colors.white),
-      ): const Text(''),
-    ],
   );
 }
 
@@ -552,7 +557,7 @@ AppBar paymentScreenAppBar(context,String text) {
 Widget paymentTextFormField(var text,var controller, var icon) {
 
   var defaultBorder = const OutlineInputBorder(
-        borderSide: BorderSide(style: BorderStyle.solid, width: 0),
+        borderSide: BorderSide(style: BorderStyle.solid, width: 1),
         borderRadius: BorderRadius.all(Radius.circular(30)),
       );
 
@@ -561,29 +566,29 @@ Widget paymentTextFormField(var text,var controller, var icon) {
     controller: controller,
     keyboardType: TextInputType.number,
     cursorColor: accentColor2,
-    style: textStyle(Colors.white70, 22, FontWeight.w400, 10, 0.25),
+    style: textStyle(primaryTextColor, 22, FontWeight.w400, 10, 0.25),
 
     decoration: InputDecoration(
       
       contentPadding: const EdgeInsets.only(top: 15, bottom: 15, left: 20),
       filled: true,
-      fillColor: const Color.fromARGB(255, 40, 40, 40),
+      fillColor: widgetColor,
       prefixIcon: icon,
       errorStyle: textStyle(Colors.redAccent, 15, FontWeight.w500, 0.5, 0.25),
       labelText: text,
-      labelStyle: textStyle(Colors.white54, 20, FontWeight.w500, 0.5, 0.25),
+      labelStyle: textStyle(primaryTextColor, 20, FontWeight.w500, 0.5, 0.25),
       floatingLabelStyle: textStyle(accentColor2, 23, FontWeight.w500, 0.3, 0.25),
       enabledBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2)
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1)
       ),
       errorBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: Colors.redAccent,style: BorderStyle.solid,width: 1),
       ),
       focusedErrorBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1),
       ),
       focusedBorder: defaultBorder.copyWith(
-        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 2),
+        borderSide: const BorderSide(color: accentColor2,style: BorderStyle.solid,width: 1),
       ),
     ),
   );
@@ -599,7 +604,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackbar(var text, var
       content: Center(
         child: Text(text,
           style: const TextStyle(
-            color: Colors.white60,
+            color: accentColor2,
             fontSize: 22,
             fontWeight: FontWeight.w500
           ),
@@ -620,7 +625,7 @@ Widget announcementTitle(text) {
   return Align(
     alignment: Alignment.center,
     child: Text(text,
-      style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0),
+      style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0),
     ),
   );
 }
@@ -629,7 +634,7 @@ Widget announcementDesc(text) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Text(text,
-      style: textStyle(Colors.white70, 15, FontWeight.w500, 0.5, 0),
+      style: textStyle(primaryTextColor, 15, FontWeight.w500, 0.5, 0),
     ),
   );
 }

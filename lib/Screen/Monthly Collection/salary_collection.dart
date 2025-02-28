@@ -21,9 +21,9 @@ class _SalaryCollectionState extends State<SalaryCollection> {
     List<String> months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     final databaseRef = FirebaseDatabase.instance.ref('Payment').child('Salary');
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         title: appBarTitleText('Monthly Salary'),
         leading: leadingBackButton(context)
       ),
@@ -35,7 +35,7 @@ class _SalaryCollectionState extends State<SalaryCollection> {
             height: screen.width*0.4,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: widgetColor,
+              color: bgColor,
               borderRadius: BorderRadius.circular(15)
             ),
             child: Padding(

@@ -17,16 +17,19 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
   Widget build(BuildContext context) {
     var screen = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         leading: leadingBackButton(context),
-        title: appBarTitleText('Details'),
+        // title: appBarTitleText('Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 50,left: 25,right: 25),
         child: Column(
           children: [
+
+            SizedBox(height: 1, width: double.infinity, child: Container(color: primaryTextColor,),),
+            SizedBox(height: screen.height*0.05),
       
             announcementTitle(ViewAnnouncement.title),
             SizedBox(height: screen.height*0.05),
@@ -39,6 +42,8 @@ class _ViewAnnouncementState extends State<ViewAnnouncement> {
             
             announcementDesc(ViewAnnouncement.author),
             SizedBox(height: screen.height*0.05),
+
+            SizedBox(height: 1, width: double.infinity, child: Container(color: primaryTextColor,),),
           ],
         ),
       ),

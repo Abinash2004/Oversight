@@ -25,9 +25,9 @@ class _FeesCollectionState extends State<FeesCollection> {
     final databaseRef = FirebaseDatabase.instance.ref('Payment').child('Fees');
     
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         title: appBarTitleText('Monthly Fees'),
         leading: leadingBackButton(context)
       ),
@@ -39,7 +39,7 @@ class _FeesCollectionState extends State<FeesCollection> {
             height: screen.width*0.4,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: widgetColor,
+              color: bgColor,
               borderRadius: BorderRadius.circular(15)
             ),
             
@@ -54,7 +54,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text('Date : ',
-                        style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25),
+                        style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25),
                       ),
                     ),
                     SizedBox(width: screen.width*0.1),
@@ -63,7 +63,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                       value: month,
                       items: [
                         for(int i = 0; i < 12; i++)
-                        DropdownMenuItem<String>(value: months[i],child:Text(months[i],style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                        DropdownMenuItem<String>(value: months[i],child:Text(months[i],style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                       ], 
                       onChanged:(String? newValue) {
                         setState(() {month = newValue!;collection = 0;});
@@ -75,7 +75,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                       value: year,
                       items: [
                         for(int i = 2021; i <= DateTime.now().year.toInt(); i++)
-                        DropdownMenuItem<String>(value: i.toString(),child: Text(i.toString(),style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                        DropdownMenuItem<String>(value: i.toString(),child: Text(i.toString(),style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                               ], 
                         onChanged:(String? newValue) {
                           setState(() {year = newValue!;collection = 0;});
@@ -91,7 +91,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text('Class : ',
-                          style: textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25),
+                          style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25),
                         ),
                       ),
                       SizedBox(width: screen.width*0.075),
@@ -102,7 +102,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                           for(int i = 0; i < 13; i++)
                           DropdownMenuItem<String>(
                             value: stds[i],
-                            child: Text(stds[i],style: textStyle(Colors.white70, 17, FontWeight.w500, 1, 0.25))),
+                            child: Text(stds[i],style: textStyle(primaryTextColor, 17, FontWeight.w500, 1, 0.25))),
                         ], 
                         onChanged:(String? newValue) {
                           setState(() {
@@ -130,7 +130,7 @@ class _FeesCollectionState extends State<FeesCollection> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Icon(Icons.currency_rupee_rounded, color: accentColor2,size: 40),
-                                    Text(collection.toString(), style: textStyle(Colors.white70, 40, FontWeight.w500, 1, 0.25))
+                                    Text(collection.toString(), style: textStyle(primaryTextColor, 40, FontWeight.w500, 1, 0.25))
                                   ],
                                 )
                               );

@@ -47,9 +47,9 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
     final screen = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         leading: leadingBackButton(context),
         title: appBarTitleText('Add New Student'),
       ),
@@ -63,15 +63,15 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
               children: [
                 
                 addTextFormField('Name', name,
-                    const Icon(Icons.person, color: Colors.white54), true),
+                    const Icon(Icons.person, color: primaryTextColor), true),
                 SizedBox(height: screen.height * 0.025),
                 
                 addTextFormField('Phone Number', phone,
-                    const Icon(Icons.phone, color: Colors.white54), false),
+                    const Icon(Icons.phone, color: primaryTextColor), false),
                 SizedBox(height: screen.height * 0.025),
                 
                 addTextFormField('Email', email,
-                    const Icon(Icons.email, color: Colors.white54), true),
+                    const Icon(Icons.email, color: primaryTextColor), true),
                 SizedBox(height: screen.height * 0.025),
                 
                 Container(
@@ -79,7 +79,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: widgetColor,
-                      border: Border.all(color: accentColor2, width: 2),
+                      border: Border.all(color: accentColor2, width: 1),
                       borderRadius: BorderRadius.circular(25)),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20),
@@ -120,7 +120,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: widgetColor,
-                      border: Border.all(color: accentColor2, width: 2),
+                      border: Border.all(color: accentColor2, width: 1),
                       borderRadius: BorderRadius.circular(25)),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15),
@@ -134,53 +134,52 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                 ),
                 SizedBox(height: screen.height * 0.025),
                 SizedBox(
-                    height: screen.height * 0.06,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: buttonStyle(),
-                      onPressed: () async {
-                        if (key.currentState!.validate()) {
-                          try {
-                            setState(() {isLoading = true;});
-                            final databaseRef = FirebaseDatabase.instance.ref().child('User');
-                            databaseRef.child('Student').child(email.text.replaceFirst(RegExp(r'\.[^.]*$'), '')).set({
-                              'Name': name.text,
-                              'Email': email.text,
-                              'Phone Number': phone.text,
-                              'Joining Date': date.toString(),
-                              'Class': std,
-                            }).then((value) {
-                              setState(() {
-                                isLoading = false;
-                                name = TextEditingController(text: '');
-                                phone = TextEditingController(text: '');
-                                email = TextEditingController(text: '');
-                              });
-
-                              name = TextEditingController(text: '');
-                              phone = TextEditingController(text: '');
-                              email = TextEditingController(text: '');
-                              // ignore: use_build_context_synchronously
-                              snackbar("Successfully Added", context);
-                              // ignore: use_build_context_synchronously
-                              Navigator.pop(context);
-                              
-                            });
-                          } on FirebaseAuthException catch (error) {
-                            print(error);
-                          }
-                        }
-                      },
-                      child: isLoading
-                          ? const SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: CircularProgressIndicator.adaptive(
-                                  strokeWidth: 3,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white70)))
-                          : buttonText('Save'),
-                    ))
+                height: screen.height * 0.06,
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: buttonStyle(),
+                  onPressed: () async {
+                    if (key.currentState!.validate()) {
+                      try {
+                        setState(() {isLoading = true;});
+                        final databaseRef = FirebaseDatabase.instance.ref().child('User');
+                        databaseRef.child('Student').child(email.text.replaceFirst(RegExp(r'\.[^.]*$'), '')).set({
+                          'Name': name.text,
+                          'Email': email.text,
+                          'Phone Number': phone.text,
+                          'Joining Date': date.toString(),
+                          'Class': std,
+                        }).then((value) {
+                          setState(() {
+                            isLoading = false;
+                            name = TextEditingController(text: '');
+                            phone = TextEditingController(text: '');
+                            email = TextEditingController(text: '');
+                          });
+                          name = TextEditingController(text: '');
+                          phone = TextEditingController(text: '');
+                          email = TextEditingController(text: '');
+                          // ignore: use_build_context_synchronously
+                          snackbar("Successfully Added", context);
+                          // ignore: use_build_context_synchronously
+                          Navigator.pop(context);
+                          
+                        });
+                      } on FirebaseAuthException catch (error) {
+                        print(error);
+                      }
+                    }
+                  },
+                  child: isLoading
+                      ? const SizedBox(
+                          height: 25,
+                          width: 25,
+                          child: CircularProgressIndicator.adaptive(
+                              strokeWidth: 3,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.white70)))
+                      : buttonText('Save'),
+                ))
               ],
             ),
           ),

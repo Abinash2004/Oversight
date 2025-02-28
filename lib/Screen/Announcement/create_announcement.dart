@@ -24,9 +24,9 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
     final screen = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         leading: leadingBackButton(context),
         title: appBarTitleText('Add Announcement'),
       ),
@@ -40,8 +40,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
               children: [
                 
                 SizedBox(height: screen.height * 0.025),
-                addTextFormField('Title', title,
-                    const Icon(Icons.title, color: Colors.white54), true),
+                addTextFormField('Title', title, const Icon(Icons.title, color: primaryTextColor), true),
                 SizedBox(height: screen.height * 0.025),
                 
                 homeScreenHeading('Description:'),
@@ -52,51 +51,50 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
                 SizedBox(height: screen.height * 0.025),
 
                 SizedBox(
-                    height: screen.height * 0.06,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: buttonStyle(),
-                      onPressed: () async {
-                        if (key.currentState!.validate()) {
-                          try {
-                            setState(() {isLoading = true;});
-                            final databaseRef = FirebaseDatabase.instance.ref().child('Announcement');
-                            databaseRef.child(DateFormat("dd-MM-yyyy HH'H'-mm'M'-ss'S'").format(DateTime.now())).set({
-                              'Title': title.text,
-                              'Description': desc.text, 
-                              'Date': DateFormat("dd-MM-yyyy HH'H'-mm'M'-ss'S'").format(DateTime.now()),
-                              'Author': MyApp.name
-                            }).then((value) {
-                              setState(() {
-                                isLoading = false;
-                                title = TextEditingController(text: '');
-                                desc = TextEditingController(text: '');
-                              });
-
+                  height: screen.height * 0.06,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: buttonStyle(),
+                    onPressed: () async {
+                      if (key.currentState!.validate()) {
+                        try {
+                          setState(() {isLoading = true;});
+                          final databaseRef = FirebaseDatabase.instance.ref().child('Announcement');
+                          databaseRef.child(DateFormat("dd-MM-yyyy HH'H'-mm'M'-ss'S'").format(DateTime.now())).set({
+                            'Title': title.text,
+                            'Description': desc.text, 
+                            'Date': DateFormat("dd-MM-yyyy HH'H'-mm'M'-ss'S'").format(DateTime.now()),
+                            'Author': MyApp.name
+                          }).then((value) {
+                            setState(() {
+                              isLoading = false;
                               title = TextEditingController(text: '');
                               desc = TextEditingController(text: '');
-                              
-                              // ignore: use_build_context_synchronously
-                              snackbar("Successfully Added", context);
-                              // ignore: use_build_context_synchronously
-                              Navigator.pop(context);
-                              
                             });
-                          } on FirebaseAuthException catch (error) {
-                            print(error);
-                          }
+                            title = TextEditingController(text: '');
+                            desc = TextEditingController(text: '');
+                            
+                            // ignore: use_build_context_synchronously
+                            snackbar("Successfully Added", context);
+                            // ignore: use_build_context_synchronously
+                            Navigator.pop(context);
+                            
+                          });
+                        } on FirebaseAuthException catch (error) {
+                          print(error);
                         }
-                      },
-                      child: isLoading
-                          ? const SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: CircularProgressIndicator.adaptive(
-                                  strokeWidth: 3,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white70)))
-                          : buttonText('Save'),
-                    ))
+                      }
+                    },
+                    child: isLoading ? const SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator.adaptive(
+                        strokeWidth: 3,
+                        valueColor: AlwaysStoppedAnimation<Color>(primaryTextColor)
+                      )
+                    ) : buttonText('Save'),
+                  )
+                )
               ],
             ),
           ),

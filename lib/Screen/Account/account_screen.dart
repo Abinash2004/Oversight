@@ -26,7 +26,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     var screen = MediaQuery.sizeOf(context);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: accountScreenAppBar(context),
       body: Padding(
         padding: const EdgeInsets.only(top: 50,left: 25,right: 25),

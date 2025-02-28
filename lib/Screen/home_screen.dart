@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
 
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: homeScreenAppBar(context),
       body: Padding(
 

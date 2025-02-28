@@ -23,11 +23,18 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     var screen = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: accentColor1,
-        title: Center(child: loginTitleText('OVERSIGHT')),
+        backgroundColor: bgColor,
+        title: loginTitleText('OVERSIGHT'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(2.0), // Height of the underline
+          child: Container(
+            color: accentColor2, // Change to your desired underline color
+            height: 0.5, // Thickness of the underline
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -45,16 +52,27 @@ class _OtpScreenState extends State<OtpScreen> {
             
             Row(
               children: [
-                
+
                 Checkbox(
+                  fillColor: WidgetStateProperty.resolveWith<Color>(
+                    (Set<WidgetState> states) {
+                      if (states.contains(WidgetState.selected)) {
+                        return accentColor2; // Color when checked
+                      }
+                      return bgColor; // Default color when unchecked
+                    },
+                  ),
                   value: isFirstTimeLogin,
                   onChanged: (bool? value) {
-                    setState(() {isFirstTimeLogin = value ?? false;});
+                    setState(() {
+                      isFirstTimeLogin = value ?? false;
+                    });
                   },
                 ),
+
                 
                 Text('First Time Login',
-                  style: textStyle(Colors.white70, 15, FontWeight.w400, 1, 0.25),
+                  style: textStyle(primaryTextColor, 15, FontWeight.w400, 1, 0.25),
                 ),
               ],
             ),
@@ -143,7 +161,7 @@ class _OtpScreenState extends State<OtpScreen> {
             
             TextButton(
               onPressed: () {Navigator.pop(context);},
-              child: Text('Modify Email Address', style: textStyle(Colors.white70, 15, FontWeight.w400, 1, 0.25),
+              child: Text('Modify Email Address', style: textStyle(primaryTextColor, 15, FontWeight.w400, 1, 0.25),
               ),
             ),
           ],

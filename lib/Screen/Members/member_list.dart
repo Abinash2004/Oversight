@@ -23,18 +23,19 @@ class _MemberListState extends State<MemberList> {
 
     return Scaffold(
       
-      backgroundColor: Colors.black,
+      backgroundColor: bgColor,
       
       appBar: AppBar(
-        backgroundColor: accentColor1,
+        backgroundColor: bgColor,
         title: appBarTitleText('${MemberList.user} List'),
+        leading: leadingBackButton(context),
         actions: (MemberList.user == 'Student') ? [ DropdownButton<String>(
           value: std,
           items: [
             for (int i = 1; i <= 12; i++)
             DropdownMenuItem<String>(
               value: i.toString(),
-              child: Text('Class $i',style: textStyle(Colors.white, 20, FontWeight.w500, 1, 0.25))),
+              child: Text('Class $i',style: textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25))),
           ],
           onChanged: (String? newValue) {
             setState(() {std = newValue!;});
@@ -50,12 +51,12 @@ class _MemberListState extends State<MemberList> {
               builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(color: Colors.white70),
+                  child: CircularProgressIndicator(color: primaryTextColor),
                 );
               } else if (!snapshot.hasData || snapshot.data!.snapshot.value == null) {
                 // No data available case
                   return Center(
-                    child: Text('No Data Available',style:textStyle(Colors.white70, 20, FontWeight.w500, 1, 0.25),
+                    child: Text('No Data Available',style:textStyle(primaryTextColor, 20, FontWeight.w500, 1, 0.25),
                     ),
                   );
               } else {
@@ -119,7 +120,7 @@ class _MemberListState extends State<MemberList> {
                                         
                                         (MyApp.user == 'Admin' && MemberList.user != 'Admin') ? Column(
                                           children: [
-                                            memberListIconButton(context,screen,const Icon(Icons.delete_rounded,size: 40,color:accentColor1),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],'','','Delete'),
+                                            memberListIconButton(context,screen,const Icon(Icons.delete_rounded,size: 40,color:accentColor2),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],'','','Delete'),
                                             memberListText('Delete\nAccount'),
                                           ],
                                         ) : const SizedBox(),
@@ -128,7 +129,7 @@ class _MemberListState extends State<MemberList> {
                                         
                                         (MyApp.user == 'Admin' && MemberList.user != 'Admin') ? Column(
                                           children: [
-                                            memberListIconButton(context,screen,const Icon(Icons.history,size: 40,color:accentColor1),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],(MemberList.user !='Admin')? list[index]['Joining Date']: '','','Payment History'),memberListText('Payment\nHistory'),
+                                            memberListIconButton(context,screen,const Icon(Icons.history,size: 40,color:accentColor2),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],(MemberList.user !='Admin')? list[index]['Joining Date']: '','','Payment History'),memberListText('Payment\nHistory'),
                                           ],
                                         ) : const Text(''),
 
@@ -136,7 +137,7 @@ class _MemberListState extends State<MemberList> {
 
                                         (MyApp.user == 'Admin' && MemberList.user != 'Admin') ? Column(
                                           children: [
-                                            memberListIconButton(context,screen,const Icon(Icons.currency_rupee_rounded,size: 40,color:accentColor1),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],'',(MemberList.user =='Student')? list[index]['Class']: '','Payment'),memberListText('Payment')
+                                            memberListIconButton(context,screen,const Icon(Icons.currency_rupee_rounded,size: 40,color:accentColor2),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],'',(MemberList.user =='Student')? list[index]['Class']: '','Payment'),memberListText('Payment')
                                           ]
                                         ) : const SizedBox(),
                                         
@@ -144,7 +145,7 @@ class _MemberListState extends State<MemberList> {
                                         
                                         Column(
                                           children: [
-                                            memberListIconButton(context,screen,const Icon(Icons.edit_document,size: 40,color:accentColor1),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],(MemberList.user !='Admin')? list[index]['Joining Date']: '',(MemberList.user =='Student')? list[index]['Class']: '','Edit Account'),memberListText('Edit\nAccount'),
+                                            memberListIconButton(context,screen,const Icon(Icons.edit_document,size: 40,color:accentColor2),databaseRef,list[index]['Name'],list[index]['Phone Number'],list[index]['Email'],(MemberList.user !='Admin')? list[index]['Joining Date']: '',(MemberList.user =='Student')? list[index]['Class']: '','Edit Account'),memberListText('Edit\nAccount'),
                                           ],
                                         ),
                                       ],
