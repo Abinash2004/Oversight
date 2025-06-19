@@ -1,16 +1,32 @@
-# finance_tracker
+📱 Sample Application - Demo Access
 
-A new Flutter project.
+This is a sample application built using dummy data, as the original data from private institutions cannot be shared publicly. However, all core functionalities are fully operational and available for demonstration at any time.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+🚀 How to Access the Application
 
-A few resources to get you started if this is your first Flutter project:
+1. Install the app on your Android device. [ Link - https://drive.google.com/drive/folders/1gXEtzb0Jk4ErHRsaRG2f0oc4tKufwALW?usp=sharing. ]
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Choose a role to log in: Admin, Teacher, or Student.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Use the following demo credentials to explore the features:
+
+	🔐 Demo Login Credentials
+
+	Admin -
+	Email: admin@mail.com
+	Password: 123456
+
+
+	Teacher -
+	Email: teacher@mail.com
+	Password: 123456
+
+	
+	Student -
+	Email: student@mail.com
+	Password: 123456
+
+
+Thank you for checking out this project!
+Feel free to explore and reach out with any feedback.
