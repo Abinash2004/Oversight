@@ -5,7 +5,9 @@ This is a sample application built using dummy data, as the original data from p
 
 🚀 How to Access the Application
 
-1. Install the app on your Android device. [ Link - https://drive.google.com/drive/folders/1gXEtzb0Jk4ErHRsaRG2f0oc4tKufwALW?usp=sharing. ]
+[ Link - https://drive.google.com/drive/folders/1gXEtzb0Jk4ErHRsaRG2f0oc4tKufwALW?usp=sharing. ]
+
+1. Install the app on your Android device.
 
 2. Choose a role to log in: Admin, Teacher, or Student.
 
